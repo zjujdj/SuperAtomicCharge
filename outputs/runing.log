@@ -1,0 +1,8 @@
+Converted file: /home/jike/dejunjiang/charge_prediction/outputs/hello_charge/3cl-min_new_e4.mol2
+Using backend: pytorch
+********************************job_of_name:hello_charge, start*************************************************
+
+time 2021-07-23 17:02:39.418968
+Namespace(correct_charge=True, input_file='3cl-min.sdf', job_of_name='hello_charge', output_format='both', type_of_charge='e4')
+********************************job_of_name:hello_charge, end*************************************************
+
