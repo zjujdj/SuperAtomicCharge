@@ -239,7 +239,6 @@ def graph_from_mol_for_prediction(m):
     return g
 
 
-# acsf descriptor = 65
 def graph_from_mol_new(data_dir, key, cache_path, path_marker):
     # small molecule
     # new_order = rdmolfiles.CanonicalRankAtoms(m)
@@ -307,33 +306,7 @@ def graph_from_mol_new(data_dir, key, cache_path, path_marker):
     D3_info_th = torch.tensor(D3_info_ls, dtype=torch.float)
     g.edata['e'] = torch.cat([g.edata['e'], D3_info_th], dim=-1)
 
-    # acsf 计算
-    AtomicNums = []
-    for i in range(num_atoms):
-        AtomicNums.append(mol.GetAtomWithIdx(i).GetAtomicNum())
-    Corrds = mol.GetConformer().GetPositions()
-    AtomicNums = torch.tensor(AtomicNums, dtype=torch.long)
-    Corrds = torch.tensor(Corrds, dtype=torch.float64)
-    AtomicNums = torch.unsqueeze(AtomicNums, dim=0)
-    Corrds = torch.unsqueeze(Corrds, dim=0)
-    res = converter((AtomicNums, Corrds))
-    pbsf_computer = AEVComputer(Rcr=6.0, Rca=6.0, EtaR=torch.tensor([4.00]), ShfR=torch.tensor([3.17]),
-                                EtaA=torch.tensor([3.5]), Zeta=torch.tensor([8.00]),
-                                ShfA=torch.tensor([0]), ShfZ=torch.tensor([3.14]), num_species=10)
-    outputs = pbsf_computer((res.species, res.coordinates))
-    if torch.any(torch.isnan(outputs.aevs[0].float())):
-        print(mol)
-        status = False
-    ligand_atoms_aves = outputs.aevs[0].float()
-    # acsf features
-    g.ndata['acsf'] = ligand_atoms_aves
-
     save_graphs(cache_path + path_marker + key, [g])
-
-
-# # test
-# m = Chem.MolFromMolFile('F:\\01ReData\\BigData\\ChargeData\\ChargeData\\e4\\all\\0.sdf', removeHs=False)
-# g = graph_from_mol_new(m)
 
 
 class GraphDataset(object):
@@ -394,7 +367,7 @@ class GraphDatasetNew(object):
             self.graphs = load_graphs(self.cache_bin_file)[0]
 
         else:
-            print('Generate complex graph...')
+            print('Generate dgl graph...')
             if not os.path.exists(self.tmp_cache_path):
                 cmdline = 'mkdir -p %s' % self.tmp_cache_path
                 os.system(cmdline)
