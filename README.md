@@ -27,12 +27,13 @@ Two methods were provided for reproducing the conda environment used in this pap
     ```
   
 ## Usage
-Users can directly use our well-trained model to predicted the corresponding partial atomic charge (DDEC4, DDEC78 and RESP).
-Because this method was based on the 3D molecular structures. Therefore, the actual use of this method should be conducted 
-on optimized molecules, such as molecules optimized by MMFF force field and PM7 method, and the inputs should  be a sdf file 
-containing multiple molecules with 3D coordinates. The input example was deposited in `./inputs/3cl-min.sdf` or `./inputs/casp8-min.sdf`.
-For users who want to train their own model using new datasets, we also show a model training example. The corresponding 
-training data was deposited in `./training_data`. The label of training data can be assessed using script `./scripts/get_sdf_charge.py`
+Users can directly use our well-trained model (depoisted in `./model_save/` directory) to predicted the corresponding 
+partial atomic charge (DDEC4, DDEC78 and RESP). Because this method was based on the 3D molecular structures. Therefore, 
+the actual use of this method should be conducted  on optimized molecules, such as molecules optimized by MMFF force 
+field and PM7 method, and the inputs should  be a sdf file containing multiple molecules with 3D coordinates. The input 
+example was deposited in `./inputs/3cl-min.sdf` or `./inputs/casp8-min.sdf`. For users who want to train their own model 
+using new datasets, we also show a model training example. The corresponding training data was deposited in 
+`./training_data`. The label of training data can be assessed using script `./scripts/get_sdf_charge.py`
 - **step 1: Clone the Repository**
 ```python
 git clone https://github.com/zjujdj/SuperAtomicCharge.git
