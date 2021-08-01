@@ -1,6 +1,8 @@
 # SuperAtomicCharge
 Out-of-the-box Deep Learning Prediction of Atomic Partial Charges by Graph Representation and Transfer Learning.
 This source code was tested on the basic environment with `conda==4.5.4` and `cuda==11.0`
+
+![Image text](https://github.com/zjujdj/SuperAtomicCharge/blob/main/fig/graph_Abstract.jpg)
 ## Conda Environment Reproduce
 Two methods were provided for reproducing the conda environment used in this paper
 - **create environment using file packaged by conda-pack**
