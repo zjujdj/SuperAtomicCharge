@@ -93,10 +93,23 @@ if __name__ == '__main__':
                 torch.load(model_home_path + path_marker + models[charges.index(type_of_charge)], map_location='cpu')['model_state_dict'])
             ChargeModel.to(device)
 
-            pred = []
-            num_batch = len(graphs) // batch_size
-            for i_batch in range(num_batch):
-                bg = dgl.batch(graphs[batch_size * i_batch:batch_size * (i_batch + 1)])
+            ChargeModel.eval()
+            with torch.no_grad():
+                pred = []
+                num_batch = len(graphs) // batch_size
+                for i_batch in range(num_batch):
+                    bg = dgl.batch(graphs[batch_size * i_batch:batch_size * (i_batch + 1)])
+                    bg = bg.to(device)
+                    feats = bg.ndata.pop('h')
+                    efeats = bg.edata.pop('e')
+                    outputs = ChargeModel(bg, feats, efeats)
+                    if charge != 'resp':
+                        pred.append(outputs.data.cpu().numpy())
+                    else:
+                        pred.append(outputs[:, 0].view(-1, 1).data.cpu().numpy())
+
+                # last batch
+                bg = dgl.batch(graphs[batch_size * num_batch:])
                 bg = bg.to(device)
                 feats = bg.ndata.pop('h')
                 efeats = bg.edata.pop('e')
@@ -105,18 +118,7 @@ if __name__ == '__main__':
                     pred.append(outputs.data.cpu().numpy())
                 else:
                     pred.append(outputs[:, 0].view(-1, 1).data.cpu().numpy())
-
-            # last batch
-            bg = dgl.batch(graphs[batch_size * num_batch:])
-            bg = bg.to(device)
-            feats = bg.ndata.pop('h')
-            efeats = bg.edata.pop('e')
-            outputs = ChargeModel(bg, feats, efeats)
-            if charge != 'resp':
-                pred.append(outputs.data.cpu().numpy())
-            else:
-                pred.append(outputs[:, 0].view(-1, 1).data.cpu().numpy())
-            pred = np.concatenate(np.array(pred), 0)
+                pred = np.concatenate(np.array(pred), 0)
             pred = iter(pred)
 
             sdf_file_name = '%s_new_%s.sdf' % (data_fold[:-4], charge)
