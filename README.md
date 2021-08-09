@@ -37,7 +37,7 @@ with 3D coordinates. The input  example was deposited in `./inputs/3cl-min.sdf` 
 who want to train their own model using new datasets, we also show a model training example in the following. The 
 corresponding training data was deposited in `./training_data`. The label of training data can be assessed using the
 script `./scripts/get_sdf_charge.py`. In addtion, we also provided a web server for directly predicting the atomic partial 
-charges in the ![deepchargepredictor server](http://cadd.zju.edu.cn/deepchargepredictor/)
+charges in the [deepchargepredictor server](http://cadd.zju.edu.cn/deepchargepredictor/)
 - **step 1: Clone the Repository**
 ```python
 git clone https://github.com/zjujdj/SuperAtomicCharge.git
