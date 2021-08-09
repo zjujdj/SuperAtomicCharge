@@ -7,7 +7,7 @@ This source code was tested on the basic environment with `conda==4.5.4` and `cu
 Two methods were provided for reproducing the conda environment used in this paper
 - **create environment using file packaged by conda-pack**
     
-    Download the packaged file [dgl430_v1_minimum_.tar.gz](https://drive.google.com/file/d/10U4g53LDQSpbGllSi7FomYuFLexFkKn2/view?usp=sharing) 
+    Download the packaged file [dgl430_v1_minimum_.tar.gz](https://drive.google.com/file/d/1Rls2ydUSoEjW_rRnvXBzBCcoB4YvcWLQ/view?usp=sharing) 
     and following commands can be used:
     ```python
     mkdir /opt/conda_env/dgl430_v1_minimum
@@ -79,5 +79,5 @@ python model_train.py -h
 ```
 
 ## Acknowledgement
-Some scripts were based on the [dgl project](https://github.com/awslabs/dgl-lifesci/blob/master/python/dgllife/model/gnn/attentivefp.py). 
+Some scripts were based on the [dgl project](https://github.com/awslabs/dgl-lifesci). 
 We'd like to show our sincere thanks to them.
