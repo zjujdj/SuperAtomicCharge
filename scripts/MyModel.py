@@ -1,6 +1,6 @@
 """
 some codes in this script was based on
-https://github.com/awslabs/dgl-lifesci/blob/master/python/dgllife/model/gnn/attentivefp.py
+https:https://github.com/awslabs/dgl-lifesci
 """
 
 import torch.nn as nn
